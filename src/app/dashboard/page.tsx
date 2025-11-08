@@ -27,21 +27,25 @@ const page = () => {
           title="Manage main info"
           image="./mainInfo.png"
           information="Manage the information first displayed on your portfolio landing page"
+          navigation=""
         />
         <CustomCard
           title="Manage skills"
           image="/skills.webp"
           information="Manage the skills listed on your portfolio"
+          navigation=""
         />
         <CustomCard
           title="Manage projects"
           image="/projects.png"
           information="Manage the projects showcased on your portfolio"
+          navigation=""
         />
         <CustomCard
           title="Manage personal info"
           image="/personalInfo.png"
           information="Manage the personal information showed on your portfolio"
+          navigation=""
         />
       </div>
     </div>
