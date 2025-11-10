@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAccessToken } from "./storageFunction";
 
 export const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL + "/api";
 
@@ -14,7 +15,12 @@ export const apiProcessor = async ({
   data,
 }: apiProcessorParams) => {
   try {
-    let response = await axios({ method, url, data });
+    let response = await axios({
+      method,
+      url,
+      data,
+      headers: { Authorization: getAccessToken() },
+    });
     //response from backend expample: {status: "success", message: "Login successful", user}
     return response.data;
   } catch (error) {

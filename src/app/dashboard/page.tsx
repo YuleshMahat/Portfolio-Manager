@@ -7,7 +7,7 @@ import style from "./page.module.css";
 
 const page = () => {
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column gap-3">
       <TypeAnimation
         sequence={[
           "Hello  There",
@@ -33,7 +33,7 @@ const page = () => {
           title="Manage skills"
           image="/skills.webp"
           information="Manage the skills listed on your portfolio"
-          navigation=""
+          navigation="/skills"
         />
         <CustomCard
           title="Manage projects"

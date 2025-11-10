@@ -1,9 +1,10 @@
 // src/app/api/auth/register/route.js
-import { NextResponse } from "next/server";
+import { NextResponse, userAgent } from "next/server";
 import { createOne, findByFilter } from "@/models/auth/authModel";
 import { mongooseConnect } from "@/lib/config/mongoConfig";
 import { parseJSON } from "@/lib/utils/parseJson";
 import { encodeFunction, decodeFunction } from "@/lib/utils/passwordEncrypt";
+import { createAccessToken, createRefreshToken } from "@/lib/utils/jwt";
 
 export async function registerUser(req) {
   try {
@@ -49,13 +50,22 @@ export async function loginUser(req) {
     }
 
     const user = result.toObject();
-    delete user.password;
+    console.log(user);
+    const payload = {
+      fname: user.fname,
+      lname: user.lname,
+      email: user.email,
+    };
 
+    const accessToken = createAccessToken(payload);
+    const refreshToken = createRefreshToken(payload);
     return NextResponse.json(
       {
         status: "success",
         message: "Login Successful",
         user,
+        accessToken,
+        refreshToken,
       },
       { status: 200 }
     );

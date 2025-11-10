@@ -1,19 +1,60 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import style from "./MainDetailForm.module.css";
+import useForm from "@/hooks/useForm";
+import {
+  getMainInfoAction,
+  updateMainInfoAction,
+} from "@/features/mainInfo/mainInfoAction";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
 const MainDetailForm = () => {
+  const { user } = useAppSelector((state) => state.userStore);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    updateMainInfoAction(form);
   };
 
+  const { form, setForm, handleChange } = useForm<FormValues>({
+    primaryInfo: "",
+    secondaryInfo: "",
+  });
+  useEffect(() => {
+    const getInfo = async () => {
+      const result = await getMainInfoAction(user._id);
+      setForm({
+        primaryInfo: result.result?.primaryInfo || "",
+        secondaryInfo: result.result?.secondaryInfo || "",
+        infoId: result.result?._id,
+      });
+    };
+    getInfo();
+  }, []);
+
+  interface FormValues {
+    primaryInfo: string;
+    secondaryInfo: string;
+    infoId?: string;
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column gap-1 width-50">
+    <form onSubmit={handleSubmit} className={style.gridLayout}>
       <label>Title Heading</label>
-      <input type="text" name="mainTitle"></input>
       <label>Secondary Info</label>
-      <input type="text" name="description"></input>
-      <button>Update</button>
+      <input
+        name="primaryInfo"
+        onChange={handleChange}
+        value={form.primaryInfo}
+        required
+      />
+      <input
+        name="secondaryInfo"
+        onChange={handleChange}
+        value={form.secondaryInfo}
+        required
+      />
+      <button className="btn btn-primary">Update</button>
     </form>
   );
 };

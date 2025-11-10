@@ -12,3 +12,10 @@ export const loginApi = (form: Form) => {
     data: form,
   });
 };
+
+export const fetchCustomerDetailApi = () => {
+  return apiProcessor({
+    method: "get",
+    url: `${apiUrl}/auth`,
+  });
+};

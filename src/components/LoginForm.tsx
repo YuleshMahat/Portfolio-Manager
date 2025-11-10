@@ -6,14 +6,17 @@ import { Button } from "react-bootstrap";
 import useForm from "@/hooks/useForm";
 import { handleLoginAction } from "@/features/auth/authAction";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 
 const LoginForm = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = await handleLoginAction(form);
+    const result = await dispatch(handleLoginAction(form));
     if (result.status === "success") {
       router.push("/dashboard");
     }
