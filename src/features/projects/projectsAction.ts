@@ -1,7 +1,20 @@
 // src/store/actions/projectsActions.ts
 import { toast } from "react-toastify";
-import { getProjectApi, addProjectApi, ProjectForm } from "./projectsApi";
-import { addProject, Project, setLoading, setProjects } from "./projectsSlice";
+import {
+  getProjectApi,
+  addProjectApi,
+  ProjectForm,
+  updateProjectApi,
+  deleteProjectApi,
+} from "./projectsApi";
+import {
+  addProject,
+  deleteProject,
+  Project,
+  setLoading,
+  setProjects,
+  updateProject,
+} from "./projectsSlice";
 import { AppDispatch } from "@/redux/store";
 
 // API response type (match your backend)
@@ -64,6 +77,46 @@ export const addProjectAction =
     } catch (error: any) {
       toast.error("Something went wrong. Please try again.");
       console.error("Add Project Error:", error);
+      throw error;
+    }
+  };
+
+export const updateProjectAction =
+  (id: string, form: ProjectForm) => async (dispatch: AppDispatch) => {
+    try {
+      const result: ApiResponse<Project> = await updateProjectApi(id, form);
+
+      if (result.status === "success") {
+        dispatch(updateProject(result.project!));
+        toast.success("Project updated successfully!");
+        return result;
+      } else {
+        toast.error(result.message || "Failed to update project");
+        return result;
+      }
+    } catch (error: any) {
+      toast.error("Something went wrong. Please try again.");
+      console.error("Update Project Error:", error);
+      throw error;
+    }
+  };
+
+// features/projects/projectsAction.ts
+export const deleteProjectAction =
+  (projectId: string) => async (dispatch: AppDispatch) => {
+    try {
+      const result: ApiResponse<any> = await deleteProjectApi(projectId);
+
+      if (result.status === "success") {
+        dispatch(deleteProject(projectId));
+        toast.success("Project deleted forever");
+        return result;
+      } else {
+        toast.error(result.message || "Failed to delete");
+      }
+    } catch (error: any) {
+      toast.error("Delete failed. Try again.");
+      console.error("Delete Error:", error);
       throw error;
     }
   };

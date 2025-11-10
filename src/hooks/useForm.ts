@@ -1,12 +1,28 @@
-import { useState } from "react";
+// hooks/useForm.ts
+import { useState, ChangeEvent } from "react";
 
-export default function useForm<T>(initialValues: T) {
-  const [form, setForm] = useState<T>(initialValues);
+type FormControlElement =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const useForm = <T extends Record<string, any>>(initial: T) => {
+  const [form, setForm] = useState<T>(initial);
+
+  const handleChange = (
+    e: ChangeEvent<FormControlElement> // ← THIS LINE FIXED IT
+  ) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { form, handleChange, setForm };
-}
+  const updateField = (name: keyof T, value: any) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const reset = () => setForm(initial);
+
+  return { form, setForm, handleChange, updateField, reset };
+};
+
+export default useForm;

@@ -33,8 +33,8 @@ export const addProjectApi = (form: ProjectForm) => {
 export const updateProjectApi = (id: string, form: Partial<ProjectForm>) => {
   return apiProcessor({
     method: "patch",
-    url: `${apiUrl}/projects/${id}`,
-    data: form,
+    url: `${apiUrl}/projects`,
+    data: { id, ...form },
   });
 };
 
@@ -42,6 +42,7 @@ export const updateProjectApi = (id: string, form: Partial<ProjectForm>) => {
 export const deleteProjectApi = (id: string) => {
   return apiProcessor({
     method: "delete",
-    url: `${apiUrl}/projects/${id}`,
+    url: `${apiUrl}/projects`,
+    data: { projectId: id },
   });
 };
