@@ -16,6 +16,6 @@ export const loginApi = (form: Form) => {
 export const fetchCustomerDetailApi = () => {
   return apiProcessor({
     method: "get",
-    url: `${apiUrl}/auth`,
+    url: `${apiUrl}/user`,
   });
 };

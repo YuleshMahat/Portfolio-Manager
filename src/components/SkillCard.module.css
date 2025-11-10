@@ -1,7 +1,50 @@
-.card {
-  background-color: #4f7698 !important;
+/* .card {
   border-radius: 5px;
   padding: 10px 5px;
   text-align: center;
-  font-size: large;
+} */
+
+.card {
+  position: relative;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #4f7698 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.skillText {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editBtn,
+.deleteBtn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.editBtn:hover {
+  background-color: #e3f2fd;
+}
+
+.deleteBtn:hover {
+  background-color: #ffebee;
 }

@@ -20,10 +20,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
-  useEffect(() => {
-    dispatch(getCustomerDetail());
-  }, [dispatch]);
-
   if (!user?._id) return null;
 
   return (

@@ -6,3 +6,11 @@ export const getSkillsApi = (id: string) => {
     url: `${apiUrl}/skills/${id}`,
   });
 };
+
+export const deleteSkillApi = (userId: string, skills: string[]) => {
+  return apiProcessor({
+    method: "patch",
+    url: `${apiUrl}/skills`,
+    data: { userId, skills }, // body for DELETE request
+  });
+};

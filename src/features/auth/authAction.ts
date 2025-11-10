@@ -17,7 +17,7 @@ export const handleLoginAction = (form: Form) => async (dispatch) => {
     toast.success(result.message);
     storeAccessToken(result.accessToken);
     storeRefreshToken(result.refreshToken);
-    dispatch(getCustomerDetail());
+    dispatch(setUser(result.user));
   } else if (result.status === "error") {
     toast.error(result.message);
   } else {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const getUserDetails = async (req: NextRequest) => {
   const userHeader = req.headers.get("x-user");
+  console.log(userHeader);
   if (!userHeader) {
     return NextResponse.json(
       { status: "error", message: "User not found!" },
