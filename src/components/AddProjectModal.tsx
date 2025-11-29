@@ -92,7 +92,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   };
 
   const handleSubmit = async () => {
-    if (!form.name || !form.image || !form.github || !form.live) {
+    if (!form.name || !form.github || !form.live) {
       return;
     }
 
@@ -107,11 +107,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
       formData.append("imageFile", imageFile);
 
-      const actionResult = dispatch(
-        addProjectAction({
-          userId: user!._id,
-        }, formData);
-      );
+      const actionResult = dispatch(addProjectAction(formData));
 
       if (actionResult && typeof (actionResult as any).then === "function") {
         await actionResult;
@@ -262,9 +258,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           variant="success"
           size="lg"
           onClick={handleSubmit}
-          disabled={
-            saving || !form.name || !form.image || !form.github || !form.live
-          }
+          disabled={saving || !form.name || !form.github || !form.live}
         >
           {saving ? (
             <div

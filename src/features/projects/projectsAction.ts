@@ -62,7 +62,7 @@ export const fetchProjectsAction =
 
 // Add a new project
 export const addProjectAction =
-  (form: ProjectForm) => async (dispatch: AppDispatch) => {
+  (form: FormData) => async (dispatch: AppDispatch) => {
     try {
       const result: ApiResponse<Project> = await addProjectApi(form);
 

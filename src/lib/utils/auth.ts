@@ -17,7 +17,6 @@ export async function requireAuth(req: Request) {
       return { message: "Unauthorized", status: 401 };
     }
     user.password = "";
-    console.log(user);
     return user;
   } catch (err: any) {
     console.log(err.message);

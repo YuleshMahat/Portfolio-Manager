@@ -1,4 +1,6 @@
 import { mongooseConnect } from "@/lib/config/mongoConfig";
+import { requireAuth } from "@/lib/utils/auth";
+import { extractImage } from "@/lib/utils/imageHelper";
 import { parseJSON } from "@/lib/utils/parseJson";
 import {
   createProject,
@@ -14,9 +16,11 @@ export const addNewProject = async (req: NextRequest) => {
     await mongooseConnect();
 
     // 3. Parse body
-    const body = await parseJSON(req);
+    const user = await requireAuth(req);
+
+    const { file, body } = await extractImage(req);
+
     const {
-      userId,
       name,
       image,
       skills = [],
@@ -26,8 +30,10 @@ export const addNewProject = async (req: NextRequest) => {
       featured = false,
     } = body;
 
-    console.log(body);
+    if (image) console.log(body);
+    console.log(file);
 
+    return;
     // 4. Basic validation
     if (!name || !image || !github || !live) {
       return NextResponse.json(
@@ -38,7 +44,7 @@ export const addNewProject = async (req: NextRequest) => {
 
     // 5. Create project via your controller
     const project = await createProject({
-      userId,
+      userId: user._id,
       name: name.trim(),
       image,
       skills,

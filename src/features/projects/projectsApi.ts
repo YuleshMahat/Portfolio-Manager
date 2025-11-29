@@ -2,9 +2,9 @@
 import { apiProcessor, apiUrl } from "@/utils-fe/apiProcessor";
 
 export interface ProjectForm {
-  userId: string;
   name: string;
   image?: string;
+  imageFile?: File | null;
   skills?: string[];
   github: string;
   live: string;
@@ -21,7 +21,7 @@ export const getProjectApi = (userId: string) => {
 };
 
 // Add new project
-export const addProjectApi = (form: ProjectForm) => {
+export const addProjectApi = (form: FormData) => {
   return apiProcessor({
     method: "post",
     url: `${apiUrl}/projects`,
