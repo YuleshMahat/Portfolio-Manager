@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Portfolio Manager",
   description: "Portfolio manager - Manager your portfolio from one platform",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
