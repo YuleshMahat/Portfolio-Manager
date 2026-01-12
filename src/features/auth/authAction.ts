@@ -11,7 +11,7 @@ interface Form {
   password: string;
 }
 
-export const handleLoginAction = (form: Form) => async (dispatch) => {
+export const handleLoginAction = (form: Form) => async (dispatch: any) => {
   const result = await loginApi(form);
   if (result.status === "success") {
     toast.success(result.message);

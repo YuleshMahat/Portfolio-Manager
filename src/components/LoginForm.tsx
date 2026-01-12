@@ -21,12 +21,7 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const payload = {
-      email: form.email,
-      password: form.password,
-    };
-    console.log("The form data is: ", payload);
-    const result = await dispatch(handleLoginAction(payload));
+    const result = await dispatch(handleLoginAction(form));
     if (result.status === "success") {
       router.push("/dashboard");
     }
@@ -65,6 +60,11 @@ const LoginForm = () => {
               name="email"
               value={form.email}
               onChange={handleChange}
+              onAnimationStart={(e) => {
+                if (e.animationName === "onAutoFillStart") {
+                  handleChange(e as any);
+                }
+              }}
               placeholder="john@example.com"
               required
               className="py-3 rounded-3 border-2"
@@ -83,6 +83,11 @@ const LoginForm = () => {
               name="password"
               value={form.password}
               onChange={handleChange}
+              onAnimationStart={(e) => {
+                if (e.animationName === "onAutoFillStart") {
+                  handleChange(e as any);
+                }
+              }}
               placeholder="••••••••"
               required
               className="py-3 rounded-3 border-2"
