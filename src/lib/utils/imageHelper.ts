@@ -19,7 +19,6 @@ export const extractImage = async (
   const entries = Object.fromEntries(formData.entries());
   let file = entries.imageFile as File | null;
 
-  console.log(file);
   delete entries.imageFile;
 
   const body: ProjectBody = {
