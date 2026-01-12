@@ -20,8 +20,13 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("The form data is: ", form);
-    const result = await dispatch(handleLoginAction(form));
+
+    const payload = {
+      email: form.email,
+      password: form.password,
+    };
+    console.log("The form data is: ", payload);
+    const result = await dispatch(handleLoginAction(payload));
     if (result.status === "success") {
       router.push("/dashboard");
     }
